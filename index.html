@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./jquery.min.js"></script>
+    <title>To-Do</title>
+    
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav>
+          <h1>To-Do</h1>
+        </nav>
+      </header>
+
+      <div class="search">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search your list..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="listContainer">
+        <div class="lists"></div>
+        <p class="searchErr" style="color: red; margin-top: 30vh; font-size: 24px; font-weight: 600;">Item Not Found</p>
+      </div>
+
+      <div class="addlist">
+        <button class="exit">&times;</button>
+        <input type="text" class="userInput" required />
+        <p class="err" style="color: red">Cannot Add Empty List</p>
+        <button class="add">Add</button>
+      </div>
+
+      <div class="bottom-btns">
+        <button id="myBtn" title="Go to top">Top</button>
+        <button class="button">Add List</button>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        var data = JSON.parse(localStorage.getItem("list")) || [];
+        renderList();
+
+        $(".addlist").hide();
+        $(".err").hide();
+        $(".searchErr").hide();
+
+        $(".button").click(() => {
+          $(".addlist").show();
+          $(".userInput").focus();
+          $(".button").hide();
+        });
+
+        $(".exit").click(() => {
+          $(".userInput").val("");
+          $(".addlist").hide();
+          $(".button").fadeIn();
+        });
+
+        //--------------------------\\
+        //   search config  start \\
+
+        $("#searchInput").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          var visibleItems = $(".list").filter(function () {
+            return $(this).text().toLowerCase().includes(value);
+          }).length;
+
+          $(".list").each(function () {
+            $(this).toggle($(this).text().toLowerCase().includes(value));
+          });
+
+          if (visibleItems === 0) {
+            $(".searchErr").show();
+          } else {
+            $(".searchErr").hide();
+          }
+        });
+
+        //        search config end       \\
+        //---------------------------------\\
+
+        $(".add").click(function () {
+          var input = $(".userInput").val().trim();
+          if (input === "") {
+            $(".err").show();
+          } else {
+            addItem(input);
+            $(".userInput").val("");
+            $(".addlist").hide();
+            $(".button").fadeIn();
+          }
+        });
+
+        $(".userInput").focus(() => {
+              $(".err").hide();
+            })
+
+
+        function addItem(item) {
+          var timestamp = new Date();
+          var id = data.length > 0 ? data[data.length - 1].id + 1 : 1;
+          var newItem = { id: id++, item, checked: false, time: timestamp };
+          data.push(newItem);
+          localStorage.setItem("list", JSON.stringify(data));
+          renderList();
+        }
+
+        // rendering of the list starts here
+
+        function renderList() {
+          $(".lists").empty();
+          data.forEach((list) => {
+            var checked = list.checked ? "checked" : "";
+            var strikeThrough = list.checked ? "strikethrough" : "";
+            var faint = list.checked ? "faint" : "";
+            var time = new Date(list.time).toLocaleString();
+            $(".lists").prepend(
+              `<div class='list ${faint}' > 
+                            <div>
+                                <label class="check">
+                                    <input type="checkbox" ${checked} onchange='checkList(${list.id})'/>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div class="list-item ${strikeThrough}"> ${list.item} </div>
+                            </div>
+                            <div class="timeStamp">
+                             <p> ${time}</p>
+                            <button class='delete' onclick='deleteList(${list.id})'>Delete</button> 
+                            </div>
+                        </div>`
+            );
+          });
+        }
+
+        window.checkList = function (id) {
+          data = data.map((list) =>
+            list.id === id ? { ...list, checked: !list.checked } : list
+          );
+          localStorage.setItem("list", JSON.stringify(data));
+          renderList();
+        };
+
+        window.deleteList = function (id) {
+          data = data.filter((list) => list.id !== id);
+          localStorage.setItem("list", JSON.stringify(data));
+          renderList();
+        };
+
+        $("#myBtn").click(function () {
+          $("html, body").animate({ scrollTop: 0 }, "fast");
+        });
+
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 20) {
+            $("#myBtn").fadeIn();
+          } else {
+            $("#myBtn").fadeOut();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

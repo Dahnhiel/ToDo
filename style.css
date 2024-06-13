@@ -1,0 +1,340 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: sans-serif;
+   /* font-family: ; */
+}
+
+.container {
+   display: flex;
+   flex-direction: column;
+}
+
+.container header {
+   background-color: lightblue;
+   padding: 20px 10px;
+   /* margin-bottom: 2rem; */
+   color: white;
+   width: 100%;
+   position: fixed;
+   z-index: 999;
+   }
+
+   .container .search {
+      margin-top: 15vh;
+      display: flex;
+      flex-direction: row;
+      place-content: center;
+      /* align-items: center; */
+   }
+
+   .container .search #searchInput {
+      padding: 10px;
+      font-size: 18px;
+      width: 50vw;
+      border-radius: 20px;
+      border: 0.2cap solid blue;
+   }
+   
+   .container .listContainer {
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   /* height: 90vh; */
+   padding: 20px;
+   margin-bottom: 10vh;
+   justify-content: center;
+}
+
+.list {
+   background-color: aliceblue;
+   padding: 20px;
+   margin-right: 20px;
+   margin-bottom: 20px;
+   border-radius: 20px;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   min-width: 80vw;
+   font-size: 18px;
+   /* gap: 30px; */
+   align-items: center;
+}
+
+.list div {
+   display: flex;
+   gap: 30px;
+   font-size: 18px;
+}
+
+.list button {
+   display: flex;
+   background-color: blue;
+   align-self: last baseline;
+   justify-self: last baseline;
+   color: white;
+   padding: 10px;
+   border: none;
+   border-radius: 10px;
+   opacity: 0.5;
+   cursor: pointer;
+}
+
+.list button:hover {
+   opacity: 1;
+   transition: 1s ease-in;
+}
+
+.list p {
+   text-transform: capitalize;
+}
+
+.container .addlist {
+   display: flex;
+   flex-direction: column;
+   position: absolute;
+   place-self: center;
+   width: auto;
+   place-content: center;
+   margin-top: 30vh;
+   background-color: white;
+   box-shadow: 0 10px 15px black ;
+   padding: 20px;
+   backdrop-filter: blur;
+   border-radius: 20px;
+   gap: 20px;
+}
+
+.container .addlist input {
+   width: 70vw;
+   resize: none;
+   border-radius: 10px;
+   padding: 20px;
+   font-size: 20px;
+   border: 2px solid lightblue;
+}
+
+.container .addlist .add {
+   background-color: lightblue;
+   color: white;
+   padding: 15px;
+   border: none;
+   border-radius: 20px;
+   width: 10%;
+   cursor: pointer;
+   align-self: last baseline;
+}
+
+.container .addlist .exit {
+   border: none;
+   background: transparent;
+   cursor: pointer;
+   align-self: first baseline;
+   color: red;
+   font-size: 24px;
+   font-weight: 700;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.container .addlist .exit:hover {
+   background-color: red;
+   color: white;
+   transition: 1s ease-in-out;
+   /* border-radius: 20px; */
+}
+
+.container .addlist .add:hover {
+   background-color: blue;
+   transition: .2s ease-in-out;
+}
+
+.container input:focus {
+   outline: none;
+}
+
+.container .button {
+   position: fixed;
+   bottom: 30px;
+   right: 40px; 
+   padding: 20px;
+   font-size: 16px;
+   text-align: center;
+   cursor: pointer;
+   outline: none;
+   color: #fff;
+   background-color: blue;
+   border: none;
+   border-radius: 15px;
+   box-shadow: 0 9px lightblue;
+   opacity: 0.6;
+   width: 100px;
+ }
+ 
+.container  .button:hover {
+   background-color: blue;
+   /* transition: 1s ease-in-out; */
+   opacity: 1;
+}
+ 
+.container  .button:active {
+   background-color: blue;
+   box-shadow: 0px 5px lightblue;
+   transform: translateY(4px) ;
+ }
+
+.container .bottom-btns {
+   display: flex;
+   flex-direction: column;
+}
+
+#myBtn {
+   display: none;
+   position: fixed;
+   bottom: 30px;
+   left: 40px; 
+   z-index: 99; 
+   border: none; 
+   outline: none; 
+   background-color: blue; 
+   color: white; 
+   cursor: pointer;
+   padding: 15px; 
+   border-radius: 10px;
+   font-size: 18px; 
+ }
+ 
+ #myBtn:hover {
+   background-color: #555; /* Add a dark-grey background on hover */
+ }
+
+/* .container button:focus {y
+   box-shadow: none;
+   transition: 2s ease-in-out;
+} */
+
+
+/*   custom checkbox style */
+
+.check {
+   display: block;
+   position: relative;
+   padding-left: 35px;
+   margin-bottom: 12px;
+   cursor: pointer;
+   font-size: 22px;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+ }
+ 
+ .check input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
+ }
+ 
+ .checkmark {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 25px;
+   width: 25px;
+   background-color: #fa4108;
+   border-radius: 5px;
+   /* z-index: -0; */
+   /* display: flex; */
+ }
+ 
+ .check:hover input ~ .checkmark {
+   background-color: #352e2e;
+ }
+ 
+ .check input:checked ~ .checkmark {
+   background-color: #670ef5;
+   border-radius: 10px;
+ }
+ 
+ .checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+ }
+ 
+ .check input:checked ~ .checkmark:after {
+   display: block;
+ }
+ 
+ .check .checkmark:after {
+   left: 9px;
+   top: 5px;
+   width: 5px;
+   height: 10px;
+   border: solid white;
+   border-width: 0 3px 3px 0;
+   -webkit-transform: rotate(45deg);
+   -ms-transform: rotate(45deg);
+   transform: rotate(45deg);
+ }
+
+ .strikethrough {
+   text-decoration: line-through;
+   }
+   
+   .faint {
+   opacity: 0.5;
+}
+
+.timeStamp {
+   /* display: flex; */
+   flex-direction: row;
+   align-items: center;
+}
+
+.timeStamp p {
+   font-size: 14px;
+   font-weight: 600;
+}
+
+ /* ---------------------------------- */
+
+@media (max-width: 700px) {
+   .container .search #searchInput {
+      width: 80vw;
+   }
+
+   .container .list {
+      width: 90vw;
+   }hhh
+
+   .container .addlist {
+      width: 90vw;
+   }
+
+   .container .addlist input {
+      width: 100%;
+      /* text-decoration: line-through; */
+   }
+
+   .container .addlist .add {
+      width: 20vw;
+   }
+
+   .timeStamp {
+      display: flex;
+      flex-direction: column-reverse;
+      /* align-items: center; */
+      gap: 1px;
+      margin: 0;
+   }
+
+   .timeStamp p {
+      font-size: 10px;
+      margin: 0;
+      display: none;
+   }
+}
